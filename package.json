@@ -1,6 +1,7 @@
 {
     "scripts": {
-        "start": "node ./src/index.ts"
+        "build": "npx tsc",
+        "aoc": "node ./dist/index.js"
     },
     "name": "advent-25",
     "version": "1.0.0",
@@ -15,5 +16,15 @@
     "bugs": {
         "url": "https://github.com/Ablim/Advent-25/issues"
     },
-    "homepage": "https://github.com/Ablim/Advent-25#readme"
+    "homepage": "https://github.com/Ablim/Advent-25#readme",
+    "type": "module",
+    "dependencies": {
+        "dotenv": "^17.2.3",
+        "node": "^20.19.6"
+    },
+    "devDependencies": {
+        "@types/node": "^24.10.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.3"
+    }
 }
