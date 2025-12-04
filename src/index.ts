@@ -1,16 +1,20 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-// const options = {
-//     hostname: 'https://adventofcode.com',
-//     path: '/2025/day/1/input',
-//     method: 'GET',
-//     headers: { 'Cookie': `session=${process.env.SESSION_COOKIE}` }
-// };
 
+const rows = await (async () => {
+    const response = await fetch(`https://adventofcode.com/2025/day/${process.env.DAY}/input`, {
+        method: "GET",
+        headers: {
+            "Cookie": `session=${process.env.SESSION_COOKIE}`
+        }
+    });
+    const content = await response.text();
+    return content.split(/\r?\n/);
+})();
 
-// const response = await fetch("https://api.example.com/data");
-// const data = await response.json();
-// const cookie = process.env.SESSION_COOKIE;
-console.log(process.env.SESSION_COOKIE);
+console.log("***********************");
+console.log("* Advent of Code 2025 *");
+console.log("***********************");
 
-console.log('Advent of Code 2025')
+console.log(`\nDay ${process.env.DAY}, part 1`);
+// solve day 1 part 1
