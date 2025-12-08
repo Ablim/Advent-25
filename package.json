@@ -1,7 +1,8 @@
 {
     "scripts": {
         "build": "npx tsc",
-        "aoc": "node ./dist/index.js"
+        "aoc": "node ./dist/index.js",
+        "test": "node ./dist/test.js"
     },
     "name": "advent-25",
     "version": "1.0.0",

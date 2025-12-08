@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import { solvePart1, solvePart2 } from "./day1.js";
 dotenv.config();
 
 const rows = await (async () => {
@@ -17,4 +18,7 @@ console.log("* Advent of Code 2025 *");
 console.log("***********************");
 
 console.log(`\nDay ${process.env.DAY}, part 1`);
-// solve day 1 part 1
+console.log(`${solvePart1(rows)}`);
+
+console.log(`\nDay ${process.env.DAY}, part 2`);
+console.log(`${solvePart2(rows)}`);
