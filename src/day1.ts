@@ -27,30 +27,53 @@ export function solvePart2(rows: string[]): string {
         let clicks = Number(rows[i]?.substring(1));
 
         if (rows[i]?.startsWith("L")) {
-            let a = clicks - dial; // 250 - 50 = 200
-            if (a > 0) {
+            // let a = clicks - dial; // 250 - 50 = 200
+            // if (a > 0) {
+            //     count++;
+            // }
+
+            // let completeTurns = Math.floor(a / 100);
+            // count += completeTurns;
+
+            // dial = (dial - clicks) % 100;
+
+            while (clicks >= 100) {
+                clicks -= 100;
                 count++;
             }
 
-            let completeTurns = Math.floor(a / 100);
-            count += completeTurns;
+            const newDial = (dial - clicks) % 100;
+            if (newDial > dial) {
+                count++;
+            }
 
-            dial = (dial - clicks) % 100;
+            dial = newDial;
         } else {
-            let a = clicks - (100 - dial);
-            if (a > 0) {
+            // let a = clicks - (100 - dial);
+            // if (a > 0) {
+            //     count++;
+            // }
+
+            // let completeTurns = Math.floor(a / 100);
+            // count += completeTurns;
+
+            // dial = (dial + clicks) % 100;
+            while (clicks >= 100) {
+                clicks -= 100;
                 count++;
             }
 
-            let completeTurns = Math.floor(a / 100);
-            count += completeTurns;
+            const newDial = (dial + clicks) % 100;
+            if (newDial < dial) {
+                count++;
+            }
 
-            dial = (dial + clicks) % 100;
+            dial = newDial;
         }
 
-        // if (dial === 0) {
-        //     count++;
-        // }
+        if (dial === 0) {
+            count++;
+        }
     }
 
     return `${count}`;

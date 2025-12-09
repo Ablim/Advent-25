@@ -1,17 +1,11 @@
 import dotenv from "dotenv";
 import { solvePart1, solvePart2 } from "./day1.js";
+import { readFile } from "fs/promises";
 dotenv.config();
 
-const rows = `L68
-L30
-R48
-L5
-R60
-L55
-L1
-L99
-R14
-L82`.split(/\r?\n/);
+const filename = `test_input/${process.env.DAY}.txt`;
+const input = await readFile(filename, "utf-8");
+const rows = input.split(/\r?\n/);
 
 console.log("********");
 console.log("* Test *");
