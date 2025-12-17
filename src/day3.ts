@@ -30,5 +30,42 @@ export function solvePart1(rows: string[]): string {
 export function solvePart2(rows: string[]): string {
     let sum = 0;
 
+    rows.forEach(row => {
+        let bank = [...row].map(b => Number(b));
+        let voltage = loop(bank, 0, 0);
+        sum += voltage;
+    });
+
     return `${sum}`;
+}
+
+function loop(bank: number[], index: number, flipped: number): number {
+    if (flipped === 12) {
+        for (let i = index; i < bank.length; i++) {
+            bank[i] = 0;
+        }
+
+        return batteryVoltage(bank);
+    }
+
+    if (index === bank.length) {
+        return batteryVoltage(bank);
+    }
+
+    let copySkip = [...bank];
+    let copyKeep = [...bank];
+    copySkip[index] = 0;
+
+    return Math.max(loop(copySkip, index + 1, flipped), loop(copyKeep, index + 1, flipped + 1));
+}
+
+function batteryVoltage(bank: Number[]): number {
+    let voltage = "";
+
+    bank.filter(b => b != 0)
+        .forEach(element => {
+            voltage += `${element}`;
+        });
+
+    return Number(voltage);
 }
