@@ -32,31 +32,42 @@ export function solvePart2(rows: string[]): string {
 
     rows.forEach(row => {
         let bank = [...row].map(b => Number(b));
-        let voltage = loop(bank, 0, 0);
+        let lookup = new Map<number, number>();
+        let voltage = loop(bank, 0, 0, lookup);
+
+        // console.log(bank + ": " + voltage);
+        // console.log(lookup);
         sum += voltage;
     });
 
     return `${sum}`;
 }
 
-function loop(bank: number[], index: number, flipped: number): number {
-    if (flipped === 12) {
-        for (let i = index; i < bank.length; i++) {
-            bank[i] = 0;
+function loop(bank: number[], index: number, flipped: number, lookup: Map<number, number>): number {
+    let voltage = lookup.get(print(bank));
+    if (voltage) {
+        return voltage;
+    }
+
+    if (index === bank.length || flipped === 12) {
+        if (flipped === 12) {
+            for (let i = index; i < bank.length; i++) {
+                bank[i] = 0;
+            }
         }
 
         return batteryVoltage(bank);
     }
 
-    if (index === bank.length) {
-        return batteryVoltage(bank);
-    }
-
     let copySkip = [...bank];
-    let copyKeep = [...bank];
     copySkip[index] = 0;
+    let copyKeep = [...bank];
 
-    return Math.max(loop(copySkip, index + 1, flipped), loop(copyKeep, index + 1, flipped + 1));
+    let left = loop(copySkip, index + 1, flipped, lookup);
+    let right = loop(copyKeep, index + 1, flipped + 1, lookup);
+    let maxVoltage = Math.max(left, right);
+    lookup.set(print(bank), maxVoltage);
+    return maxVoltage;
 }
 
 function batteryVoltage(bank: Number[]): number {
@@ -68,4 +79,14 @@ function batteryVoltage(bank: Number[]): number {
         });
 
     return Number(voltage);
+}
+
+function print(bank: Number[]): number {
+    let result = "";
+
+    bank.forEach(element => {
+        result += `${element}`;
+    });
+
+    return Number(result);
 }
