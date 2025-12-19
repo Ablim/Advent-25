@@ -34,9 +34,6 @@ export function solvePart2(rows: string[]): string {
         let bank = [...row].map(b => Number(b));
         let lookup = new Map<number, number>();
         let voltage = loop(bank, 0, 0, lookup);
-
-        // console.log(bank + ": " + voltage);
-        // console.log(lookup);
         sum += voltage;
     });
 
