@@ -76,7 +76,7 @@ function canAccess(map: string[][], row: number, col: number): boolean {
     return rolls < 4;
 }
 
-type Roll = {
+interface Roll {
     row: number,
     col: number
 };
