@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { solvePart1, solvePart2 } from "./day4.js";
+import { solvePart1, solvePart2 } from "./day5.js";
 import { readFile } from "fs/promises";
 dotenv.config();
 
