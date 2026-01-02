@@ -12,5 +12,6 @@ public static class Program
         Console.WriteLine(Day5.SolvePart1(input));
         
         Console.WriteLine($"\nDay {day}, part 2");
+        Console.WriteLine(Day5.SolvePart2(input));
     }
 }
