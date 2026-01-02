@@ -32,53 +32,38 @@ export function solvePart2(rows: string[]): string {
 
     rows.forEach(row => {
         let bank = [...row].map(b => Number(b));
-        let lookup = new Map<number, number>();
-        let voltage = loop(bank, 0, 0, lookup);
-        sum += voltage;
+        let worm = bank.slice(0, 12);
+        let maxWorm = [...worm];
+        let candidates = bank.slice(12, bank.length);
+
+        while (candidates.length > 0) {
+            let maxValue = print(worm);
+            let next = candidates[0]!;
+            let skip = 0;
+
+            for (let i = worm.length - 1; i >= 0; i--) {
+                skip = worm[i]!;
+                worm[i] = next;
+
+                if (print(worm) > maxValue) {
+                    maxWorm = [...worm];
+                    maxValue = print(maxWorm);
+                }
+
+                next = skip;
+            }
+
+            worm = [...maxWorm];
+            candidates = candidates.slice(1, candidates.length);
+        }
+
+        sum += print(maxWorm);
     });
 
     return `${sum}`;
 }
 
-function loop(bank: number[], index: number, flipped: number, lookup: Map<number, number>): number {
-    let voltage = lookup.get(print(bank));
-    if (voltage) {
-        return voltage;
-    }
-
-    if (index === bank.length || flipped === 12) {
-        if (flipped === 12) {
-            for (let i = index; i < bank.length; i++) {
-                bank[i] = 0;
-            }
-        }
-
-        return batteryVoltage(bank);
-    }
-
-    let copySkip = [...bank];
-    copySkip[index] = 0;
-    let copyKeep = [...bank];
-
-    let left = loop(copySkip, index + 1, flipped, lookup);
-    let right = loop(copyKeep, index + 1, flipped + 1, lookup);
-    let maxVoltage = Math.max(left, right);
-    lookup.set(print(bank), maxVoltage);
-    return maxVoltage;
-}
-
-function batteryVoltage(bank: Number[]): number {
-    let voltage = "";
-
-    bank.filter(b => b != 0)
-        .forEach(element => {
-            voltage += `${element}`;
-        });
-
-    return Number(voltage);
-}
-
-function print(bank: Number[]): number {
+function print(bank: number[]): number {
     let result = "";
 
     bank.forEach(element => {
