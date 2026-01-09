@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { solvePart1, solvePart2 } from "./day6.js";
+import { solvePart1, solvePart2 } from "./day7.js";
 import { readFile, writeFile, access, mkdir } from "fs/promises";
 dotenv.config();
 
@@ -29,6 +29,7 @@ async function getInput() {
 }
 
 const rows = (await getInput())
+    .trimEnd()
     .split(/\r?\n/);
 
 console.log("***********************");

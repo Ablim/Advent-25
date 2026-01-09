@@ -1,11 +1,13 @@
 import dotenv from "dotenv";
-import { solvePart1, solvePart2 } from "./day6.js";
+import { solvePart1, solvePart2 } from "./day7.js";
 import { readFile } from "fs/promises";
 dotenv.config();
 
 const filename = `test_input/${process.env.DAY}.txt`;
 const input = await readFile(filename, "utf-8");
-const rows = input.split(/\r?\n/);
+const rows = input
+    .trimEnd()
+    .split(/\r?\n/);
 
 console.log("********");
 console.log("* Test *");
